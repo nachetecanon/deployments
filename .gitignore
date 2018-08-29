@@ -1,1 +1,5 @@
 .idea
+.gradle
+gradle
+deployment-tool.iml
+build

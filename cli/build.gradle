@@ -1,0 +1,10 @@
+apply plugin: 'application'
+
+mainClassName = 'com.predictx.deployment.Cli'
+applicationName = 'deployment-tool'
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter:2.0.1.RELEASE'
+}
+
+

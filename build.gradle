@@ -1,0 +1,25 @@
+subprojects {
+    apply plugin: 'groovy'
+
+    group 'com.predictx.deployment'
+
+    repositories {
+        mavenCentral()
+        maven { url "http://nexus3.pibenchmark.com/nexus/repository/maven-central" }
+        maven { url "http://nexus3.pibenchmark.com/nexus/repository/maven-releases" }
+        maven { url "http://nexus3.pibenchmark.com/nexus/repository/maven-snapshots" }
+    }
+
+    dependencies {
+        compile 'org.codehaus.groovy:groovy-all:2.5.2'
+        testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
+    }
+}
+
+configure(subprojects.findAll()) {
+    test {
+        onlyIf {
+            !(project.name =~ /.*-test.*/)
+        }
+    }
+}
