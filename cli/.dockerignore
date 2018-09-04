@@ -1,0 +1,7 @@
+build/classes
+build/distributions/*.zip
+build/libs
+build/scripts
+build/tmp
+src
+build.gradle

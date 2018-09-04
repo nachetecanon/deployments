@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.util.Assert
 
 @SpringBootApplication(scanBasePackages = "com.predictx.deployment")
-class Cli implements CommandLineRunner{
+class Cli implements CommandLineRunner {
     private final static Logger logger = LoggerFactory.getLogger(Cli)
 
     static void main(String[] args) {
@@ -21,7 +21,9 @@ class Cli implements CommandLineRunner{
 
     @Override
     void run(String... args) throws Exception {
-        Assert.isTrue(args && Commands.values().any{it.name() == args.first()}, "Invalid argument. You must provide one of: ${Commands.values()}")
+        Assert.isTrue(args && Commands.values().any {
+            it.name() == args.first()
+        }, "Invalid argument. You must provide one of: ${Commands.values()}")
         switch (Commands.valueOf(args.first())) {
             case Commands.deploy: deploy.run(args.tail()); break
         }
