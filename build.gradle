@@ -7,11 +7,6 @@ subprojects {
     group = 'com.predictx.deployment'
     version = '1.0.0-SNAPSHOT'
 
-    ext {
-        kotlin_version = '1.2.61'
-        springBootVersion = '2.0.4.RELEASE'
-        javaversion = JavaVersion.VERSION_1_8
-    }
     repositories {
         mavenCentral()
         maven { url "http://nexus3.pibenchmark.com/nexus/repository/maven-central" }
@@ -19,19 +14,21 @@ subprojects {
         maven { url "http://nexus3.pibenchmark.com/nexus/repository/maven-snapshots" }
     }
 
-    sourceCompatibility = javaversion
-    targetCompatibility = javaversion
-
+    dependencies {
+        testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
+        testCompile 'org.codehaus.groovy:groovy-all:2.4.15'
+    }
+    sourceCompatibility = 1.8
 
     checkstyleMain {
         version = "8.11"
         ignoreFailures = false
-        configFile = rootProject.file("config/java/checkstyle/checkstyle.xml")
+        configFile = rootProject.file("config/kotlin/checkstyle/checkstyle.xml")
     }
     checkstyleTest {
         version = "8.11"
         ignoreFailures = false
-        configFile = rootProject.file("config/java/checkstyle/checkstyle.xml")
+        configFile = rootProject.file("config/kotlin/checkstyle/checkstyle.xml")
     }
 
     jacoco {
@@ -66,10 +63,11 @@ subprojects {
             html.enabled = true
         }
     }
+
     pmdMain {
         version = '4.10'
         ignoreFailures = false
-        ruleSetConfig = rootProject.resources.text.fromFile("config/java/pmd/ruleset.xml")
+        ruleSetConfig = rootProject.resources.text.fromFile("config/kotlin/pmd/ruleset.xml")
         reports {
             xml.enabled = false
             html.enabled = true
