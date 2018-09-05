@@ -26,7 +26,7 @@ class CliApplication {
  */
 class Command {
     companion object {
-        val commands : Array<CommandType> = emptyArray()
+        var commands: Set<CommandType> = emptySet()
         /**
          * fills the commands list of permitted commands
          * exits with exception if no args passed or
@@ -34,14 +34,18 @@ class Command {
         fun processArguments(args: MutableList<String>) {
             try {
                 args.iterator().forEachRemaining {
-                    commands.plusElement(CommandType.valueOf(it))
+                    val value: String = it.toUpperCase().removePrefix("-").removePrefix("-")
+                    val command = CommandType.valueOf(value)
+                    if (!commands.contains(command)) {
+                        logger.info("value added = $value")
+                        commands = commands.plus(command)
+                    }
                 }
             } catch (e: Exception) {
                 logger.error(errorMsg)
+                throw e
             }
-            require(commands.isNotEmpty()) {
-                errorMsg
-            }
+            require(commands.isNotEmpty())
         }
     }
 }
